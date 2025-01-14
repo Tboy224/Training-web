@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Registration</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <img src="https://via.placeholder.com/40" alt="pic">
+        <h1>Training Registration</h1>
+        <button onclick="logout()">Logout</button>
+    </header>
+    <div class="container">
+        <h1>Welcome, </h1>
+        <p>To register for the training, a fee of $5 is required.</p>
+        <button class="payment-btn" onclick="makePayment()">Payment</button>
+    </div>
+
+    <script>
+        async function logout() {
+            window.location.href = "/";
+        }
+
+        async function makePayment() {
+            const response = await fetch('http://localhost:3000/payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert(result.message);
+            } else {
+                alert("An error occurred. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>
