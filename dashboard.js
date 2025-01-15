@@ -77,6 +77,18 @@ if (hour === 10 && minute === 1) {
     document.getElementById('balAmount').innerText = balAmount - 4;
 } else if (hour === 10 && minute === 5) {
     document.getElementById('balAmount').innerText = balAmount - 5;
+    // Delete user account from database
+    const loggedInUserId = localStorage.getItem('loggedInUserId');
+    const docRef = doc(db, "users", loggedInUserId);
+    deleteDoc(docRef)
+    .then(() => {
+        console.log("You have been successfully removed from the training!");
+    })
+    .catch((error) => {
+        console.error("Error removing user: ", error);
+    });
+    localStorage.removeItem('loggedInUserId');
+    window.location.href='index.html';
 } else {
     document.getElementById('balAmount').innerText = balAmount;
     document.getElementById('luckyMessage').innerText = luckyMessage;
